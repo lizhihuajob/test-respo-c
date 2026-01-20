@@ -1,22 +1,21 @@
 version: '3.8'
 
 services:
-  # ----------------------------
-  # [TODO] 候选人请在此处补充配置
-  # ----------------------------
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
 
-  # 示例结构 (请取消注释并修改):
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+    restart: always
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "3000:3000"
-
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - "8000:8000"
-
-  # db:
-  #   image: postgres:15 (or mysql/redis)
-  #   ...
+volumes:
+  sqlite_data:
