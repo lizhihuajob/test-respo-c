@@ -1,96 +1,191 @@
-# 🚀 Prompt2Repo 准入考核 (Entrance Challenge)
+# � 看板任务管理系统 (Kanban Board)
 
-## 📌 考核背景
-本项目寻找具备 **"AI Native" (Vibe Coding)** 能力的资深工程师。我们需要你展示如何利用 **Cursor / Trae / Claude Code** 等 AI 工具，快速构建**工程化标准**的应用。
+一个功能完整的看板任务管理系统，支持任务拖拽、数据同步和响应式设计。
 
-> **核心考核点**：
-> 1. **AI 驾驭能力**：不仅是生成代码，而是生成架构、调试 Bug、优化工程。
-> 2. **Docker 交付标准**：强制容器化交付，拒绝“在我本地能跑”的代码。
-> 3. **全栈审美**：拒绝简陋 UI，需具备商业级交付意识。
+## ✨ 功能特性
 
----
+- 🎯 **任务管理**：创建、编辑、删除任务
+- 📊 **看板视图**：清晰的三列布局（Todo/Doing/Done）
+- 🖱️ **拖拽功能**：直观的任务状态切换
+- 💾 **数据同步**：实时保存任务状态到数据库
+- 🎨 **美观界面**：基于 Ant Design 的现代化 UI
+- 📱 **响应式设计**：适配不同屏幕尺寸
+- 🐳 **容器化部署**：使用 Docker Compose 一键启动
 
-## 🎯 题目菜单 (任选其一)
+## 🛠️ 技术栈
 
-请根据你的技术栈，从以下 5 个题目中**任选 1 个**完成。
+### 前端
+- **框架**：Vue 3
+- **UI 组件库**：Ant Design Vue
+- **构建工具**：Vite
+- **HTTP 客户端**：Axios
+- **样式**：CSS Scoped
 
-### A 纯前端：动态主题仪表盘 (SaaS Dashboard)
-* **目标**：构建一个销售数据看板，支持 Light/Dark 主题切换。
-* **技术**：React/Vue + Echarts/Recharts + **Tailwind/AntD (必选)**。
-* **交付**：将前端静态资源或服务容器化，实现一键启动。
+### 后端
+- **框架**：FastAPI (Python 3)
+- **数据库**：SQLite
+- **依赖**：无额外外部库（仅 FastAPI）
 
-### B 纯后端：短链接生成服务 (URL Shortener)
-* **目标**：实现长链接转短链接的 REST API (POST/GET)，含重定向逻辑。
-* **技术**：Python/Go/Java/Node + Redis/SQLite。
-* **交付**：API 服务与数据库均需 Docker 化。
+### 部署
+- **容器化**：Docker
+- **编排工具**：Docker Compose
+- **Web 服务器**：Nginx (前端)
 
-### C 全栈：看板任务管理 (Kanban Board) —— ⭐ 推荐
-* **目标**：实现类似 Trello 的任务拖拽 (Todo/Doing/Done) 及数据同步。
-* **技术**：Web 前端 + 后端 API + 数据库。
-* **交付**：前后端及数据库必须通过 `docker compose` 一键联调。
+## 🚀 快速开始
 
-### D 跨平台/小程序：咖啡点单 (Coffee Order App)
-* **目标**：模拟点单流程（商品列表、规格选择、购物车）。
-* **技术**：Uni-app / Taro / Flutter / 微信原生。
-* **交付**：**客户端代码本地运行** + **后端 API/DB 必须 Docker 化**。
+### 环境要求
+- Docker (version 20.10+)
+- Docker Compose (version 1.29+)
 
-### E 原生移动端：健身计时器 (Fitness Timer)
-* **目标**：HIIT 倒计时工具，支持后台运行和声音提示。
-* **技术**：Swift / Kotlin / React Native。
-* **交付**：**App 代码本地运行** + **后端 API/DB 必须 Docker 化**。
+### 一键启动
 
----
+```bash
+docker-compose up -d
+```
 
-## 📦 统一交付标准 (Unified Delivery Standard)
+启动后访问：
+- 前端应用：http://localhost:3000
+- 后端 API：http://localhost:8000
 
-本项目强制要求 **Docker 化交付**。请根据你选择的题目类型，遵守以下目录结构和规范：
+### 停止服务
 
-### 1. 针对 Web / 全栈 / 纯后端 (Type A, B, C)
-你的仓库必须包含完整的前后端容器配置。
-* **结构示例**：
-  ```text
-  ├── frontend/ (含 Dockerfile)
-  ├── backend/  (含 Dockerfile)
-  └── docker-compose.yml  <-- 必须包含，负责启动所有服务
-### 验收标准
-阅卷官执行 `docker compose up` 后，浏览器打开 `localhost:xxxx` 即可正常使用。
+```bash
+docker-compose down
+```
 
-### 2. 针对 移动端/小程序
-我们理解 App 无法在容器内运行，因此采取
-**“后端装箱，前端裸奔”**的策略。
+## 📁 项目结构
 
-* **结构示例**：
-  ```text
-  ├── client/             <-- 放置 App/小程序源码 (无需 Docker)
-  ├── backend/            <-- 放置后端 API 源码 (必须 Docker)
-  └── docker-compose.yml  <-- 仅负责启动 backend 和 db
-  ### 验收标准
-* **GitHub Actions** 必须能成功构建 Backend 镜像。
-* **必须提供录屏**：展示 App 在模拟器/真机上运行，并成功连接 Docker 后端的演示。
+```
+├── frontend/                 # 前端代码目录
+│   ├── src/                  # 前端源码
+│   │   ├── components/       # Vue 组件
+│   │   │   └── KanbanBoard.vue  # 看板组件
+│   │   ├── App.vue           # 根组件
+│   │   └── main.js           # 入口文件
+│   ├── Dockerfile            # 前端 Docker 配置
+│   ├── nginx.conf            # Nginx 配置
+│   ├── vite.config.js        # Vite 配置
+│   └── package.json          # 前端依赖
+├── backend/                  # 后端代码目录
+│   ├── main.py               # 后端主程序
+│   ├── data/                 # 数据目录
+│   │   └── kanban.db         # SQLite 数据库文件
+│   ├── Dockerfile            # 后端 Docker 配置
+│   └── requirements.txt      # 后端依赖
+├── docker-compose.yml        # Docker Compose 配置
+└── README.md                 # 项目说明文档
+```
 
-> ⚠️ **网络连接提示 (Crucial Tip)**：
-> 在模拟器中访问 Docker 后端时，**不能使用 `localhost`**：
-> * **Android 模拟器**：请尝试 `10.0.2.2:端口`
-> * **真机调试**：请使用电脑的局域网 IP (如 `192.168.1.x`)
-> * *请在代码中预留 Base URL 配置项。*
+## 🧑‍💻 开发指南
 
----
+### 前端开发
 
-## 🚨 验收红线 (Red Lines)
-**出现以下情况将直接淘汰，不予人工审核：**
+1. 进入前端目录：
+```bash
+cd frontend
+```
 
-* ❌ **CI 构建失败**：GitHub Actions 页面显示红色 ❌ (Build Failed)。
-* ❌ **无 Docker 配置**：根目录找不到有效 `docker-compose.yml`。
-* ❌ **UI 审美缺失**：界面排版混乱、无间距、使用浏览器默认样式。
-* ❌ **缺少演示视频**：移动端/小程序未提供真机运行录屏。
+2. 安装依赖：
+```bash
+npm install
+```
 
----
+3. 启动开发服务器：
+```bash
+npm run dev
+```
 
-## 🚀 操作流程 (How to Start)
+### 后端开发
 
-1.  **领取考卷**：点击本页面右上角绿色按钮 **[Use this template]** -> **Create a new repository**。
-    * *注意：请将你的仓库设为 **Public**，否则 Actions 可能无法运行。*
-2.  **AI 开发**：使用 Cursor/Antigravity 等工具完成代码。
-3.  **机器自测**：Push 代码后，点击仓库顶部的 **[Actions]** 标签，确保显示 ✅ (Green)。
-4.  **提交作业**：
-    * 请将 **GitHub 仓库链接** + **Actions 绿灯截图** + **演示视频** 提交给招聘方。
+1. 进入后端目录：
+```bash
+cd backend
+```
+
+2. 创建虚拟环境（可选）：
+```bash
+python -m venv venv
+# Windows
+source venv/Scripts/activate
+# Linux/Mac
+source venv/bin/activate
+```
+
+3. 安装依赖：
+```bash
+pip install -r requirements.txt
+```
+
+4. 启动开发服务器：
+```bash
+python main.py
+```
+
+## 📡 API 文档
+
+### 任务 API
+
+- **获取所有任务**：`GET /api/tasks`
+- **创建任务**：`POST /api/tasks`
+- **更新任务**：`PUT /api/tasks/{task_id}`
+- **删除任务**：`DELETE /api/tasks/{task_id}`
+
+### 任务数据结构
+
+```json
+{
+  "id": 1,
+  "title": "任务标题",
+  "description": "任务描述",
+  "status": "todo",  // todo/doing/done
+  "created_at": "2024-01-01T12:00:00"
+}
+```
+
+## 🎨 界面预览
+
+### 主界面
+- 三列看板布局：Todo/Doing/Done
+- 右上角添加任务按钮
+- 任务卡片显示标题和描述
+- 支持拖拽操作切换状态
+
+### 任务操作
+- 点击任务卡片可查看详情
+- 拖拽任务到不同列切换状态
+- 支持编辑和删除任务
+
+## � 配置说明
+
+### 环境变量
+
+#### 后端
+- `DATABASE_PATH`：数据库文件路径（默认：`backend/data/kanban.db`）
+
+#### 前端
+- 在 `vite.config.js` 中配置 API 代理
+- 在 `nginx.conf` 中配置生产环境反向代理
+
+## 🔍 调试日志
+
+- 后端日志：查看 Docker 容器日志
+  ```bash
+  docker logs kanban-backend
+  ```
+- 前端日志：浏览器开发者工具控制台
+
+## 🤝 贡献指南
+
+1. Fork 本仓库
+2. 创建新分支：`git checkout -b feature/xxx`
+3. 提交更改：`git commit -m 'Add feature xxx'`
+4. 推送到分支：`git push origin feature/xxx`
+5. 创建 Pull Request
+
+## 📄 许可证
+
+MIT License
+
+## 📞 联系方式
+
+如有问题或建议，请通过 GitHub Issues 反馈。
